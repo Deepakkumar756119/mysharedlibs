@@ -1,14 +1,19 @@
-def newGit(repo)
+def gitDownload(repo)
 {
-  git "http://github.com/Deepakkumar756119/${repo}"
+    git "https://github.com/Deepakkumar/${repo}.git"
 }
 
-def newBuild()
+def mavenBuild()
 {
-  sh 'mvn package'
+    sh 'mvn package'
 }
 
-def myDeploy(jobname,ip,context)
+def tomcatDeploy(jobname,ip,context)
 {
-  sh "scp /var/lib/jenkins/workspace/${jobname}/webapp/target/webapp.war ubuntu@${ip}:/var/lib/tomcat9/webapps/${context}.war"
+   sh "scp /var/lib/jenkins/workspace/${jobname}/webapp/target/webapp.war ubuntu@${ip}:/var/lib/tomcat9/webapps/${context}.war"
+}
+
+def runSelenium(jobname)
+{
+   sh "java -jar /var/lib/jenkins/workspace/${jobname}/testing.jar"
 }
